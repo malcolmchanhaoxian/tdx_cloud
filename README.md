@@ -20,60 +20,7 @@ This release supports 4th Generation Intel® Xeon® Scalable Processors with Int
 
 ## Setup TDX Host
 
-In this section, you will install a generic Ubuntu 23.10 server, install necessary packages to turn the host
-into a TDX host, and enable TDX settings in the BIOS.
-
-1. Download and install [Ubuntu 23.10 server](https://releases.ubuntu.com/23.10/ubuntu-23.10-live-server-amd64.iso) on the host machine.
-
-NOTE: Although rare, the installer may hang during its bootup on some systems, which is caused by a kernel graphics driver issue.  The workaround is to add the `nomodeset` parameter to the kernel command-line.  Follow these steps:
-* At the `GRUB` boot menu, press `e`
-* Add `nomodeset` to linux line, like the example below:
-```bash
-linux	/casper/vmlinuz nomodeset ---
-```
-* Press `Ctrl-x` to continue the boot process
-* After installation is complete, reboot, use `nomodeset` again, like the example below:
-```bash
-linux	/boot/vmlinuz-6.5.0-10-generic nomodeset root=UUID=c5605a23-05ae-4d9d-b65f-e47ba48b7560 ro
-```
-* Step #3 below will automatically add `nomodeset` to the GRUB config so that no additional intervention is needed
-
-2. Clone this repo to get scripts that will be used throughout this README.
-
-```bash
-git clone https://github.com/canonical/tdx.git
-```
-
-3. Run the script.
-
-```bash
-cd tdx
-sudo ./setup-tdx-host.sh
-```
-
-4. Reboot.
-
-### Enable TDX Settings in the Host's BIOS
-
-1. Go into the host's BIOS.
-
-NOTE: The following is a sample BIOS configuration.  It may vary slightly from one manufacturer to another.
-
-2. Go to `Socket Configuration > Processor Configuration > TME, TME-MT, TDX`.
-
-		* Set `Memory Encryption (TME)` to `Enabled`
-		* Set `Total Memory Encryption Bypass` to `Enabled` (Optional: for best host and non-TDVM performance.)
-		* Set `Total Memory Encryption Multi-Tenant (TME-MT)` to `Enabled`
-		* Set `TME-MT memory integrity` to `Disabled`
-		* Set `Trust Domain Extension (TDX)` to `Enabled`
-		* Set `TDX Secure Arbitration Mode Loader (SEAM Loader)` to `Enabled`. (NOTE: This allows loading SEAMLDR and TDX module from the ESP or BIOS.)
-		* Set `TME-MT/TDX key split` to a non-zero value
-
-3. Go to `Socket Configuration > Processor Configuration > Software Guard Extension (SGX)`.
-
-		* Set `SW Guard Extensions (SGX)` to `Enabled`
-
-4. Save the BIOS settings and boot up.
+-- the section is removed as this fork is specific to cloud-based TDX only
 
 ### Verify TDX is Enabled on Host
 
